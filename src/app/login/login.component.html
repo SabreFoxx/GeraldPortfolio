@@ -1,0 +1,46 @@
+<header class="bold">
+    <h1>My Site!</h1>
+</header>
+
+<section class="hero is-primary is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-6-tablet is-4-desktop">
+                    <form class="box">
+                        <fieldset name="primary" class="field">
+                            <legend>Login</legend>
+                            <br>
+                            <label class="label" for="name">Name </label>
+                            <div class="control">
+                                <input class="input" title="The name you will answer" placeholder="John Adams" />
+                            </div>
+                            <label class="label" for="email">Email </label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="email" placeholder="akanrinna@gmail.com" />
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                            <label class="label" for="password">Password </label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="password" placeholder="********" />
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+                            <br>
+                            <label class="checkbox">
+                                <input type="checkbox">
+                                Remember me
+                            </label>
+                        </fieldset>
+                        <button class="button is-success" (click)="gotoDashboard()">
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,5 +1,12 @@
-<p>Hello</p>
+<app-header></app-header>
+<div class="section">
+    <div class="columns">
+        <section class="column is-4-tablet is-3-desktop is-2-widescreen">
+            <app-side-menu></app-side-menu>
+        </section>
+        <main class="column">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
 
-<form>
-  <button class="button is-primary">Hello there</button>
-</form>
+</div>
