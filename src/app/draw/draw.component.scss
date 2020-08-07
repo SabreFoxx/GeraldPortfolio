@@ -1,0 +1,51 @@
+/* This willl result in a container with height equal to 75% of the width of its container (a 4:3 ratio).
+   This relies on the fact that for padding, the percentage is calculated with respect to the width
+   of the generated box's containing block.
+
+   Padding-bottom values for other aspect ratios and 100% width:
+   16:9 => 56.25%
+   4:3 => 75%
+   3:2 => 66.66%
+   8:5 => 62.5%
+   claculate the rest yourself
+
+   In order to keep the aspect ratio of the div and prevent its content from stretching it, you need
+   to add an absolutely positioned child and stretch it to the edges of the wrapper with:
+   div.stretchy-wrapper {
+       position: relative;
+   }
+   div.stretchy-wrapper > div {
+       position: absolute;
+       top: 0; bottom: 0; left: 0; right: 0;
+   }
+*/
+// Set the width of the parent of figure.canvas, .section in this case to adjust width but
+// maintain aspect ratio
+figure.canvas {
+    position: relative;
+    padding: 0;
+    width: 100%;
+    padding-bottom: (1 / 1) * 100%; // For example 75% is for ratio 4:3, so we do (3 / 4) * 100%
+    // The <canvas> element within this selector's element causes the height of the element 
+    // to increase, even though we're using absolute positioning. I don't know why.
+    // So, let me just truncate this with max-height: 0. Note we're using border-box
+    max-height: 0;
+}
+
+figure.canvas canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/**
+ * IMPORTANT: draw.component does not support Bulma columns for automatic resize, unlike other
+ * containers and divs in which it can resize itself out-of-the-box. This is because draw.component
+ * relies on the width of its container to compute its own width. But Bulma's .column uses flex in
+ * such a way that it relies on its content to compute its width. Therefore no width is computed.
+ * To fix this, add style="flex-basis: 50%" in the div.column that contains draw.component, to 
+ * to start a flex basis. This way, an initial width will be available and further resizing will
+ * continue from there.
+ */

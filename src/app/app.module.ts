@@ -8,6 +8,11 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { CreateComponent } from './create/create.component';
+import { NavComponent } from './header/nav/nav.component';
+import { GeneralComponent } from './general/general.component';
+import { LandingComponent } from './landing/landing.component';
+import { FooterComponent } from './footer/footer.component';
+import { DrawComponent } from './draw/draw.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { CreateComponent } from './create/create.component';
     LoginComponent,
     HeaderComponent,
     SideMenuComponent,
-    CreateComponent
+    CreateComponent,
+    NavComponent,
+    GeneralComponent,
+    LandingComponent,
+    FooterComponent,
+    DrawComponent,
   ],
   imports: [
     BrowserModule,

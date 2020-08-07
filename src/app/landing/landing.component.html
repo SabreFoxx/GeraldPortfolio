@@ -1,0 +1,157 @@
+<section #heroSection id="hero" class="hero is-dark is-bold is-primary is-fullheight">
+    <!-- We need #heroSection, so we can fetch its dimensions -->
+    <div class="hero-art" (window:resize)="customResizer($event)">
+        <drawing #heroDrawing [drawingName]="'HeroArtDrawing'"></drawing>
+    </div>
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">Hello, I'm <a class="is-link">Gerald Nnebe</a>.</h1>
+            <h1 class="title">I'm a fullstack software engineer.</h1>
+            <button class="button is-primary is-inverted is-outlined">View My Work -></button>
+        </div>
+    </div>
+</section>
+<nav app-nav class="navbar has-shadow"></nav>
+
+<section class="section">
+    <div class="container">
+        <div class="has-text-centered">
+            <h2 class="title is-2 section--underline-bottom">About</h2>
+            <div class="section--underline"></div>
+        </div>
+        <div class="columns is-centered landing-about">
+            <div class="column is-narrow">
+                <figure class="image box landing-profile-picture">
+                    <img src="assets/img/profile.png">
+                </figure>
+            </div>
+            <div class="column is-size-4" style="align-self: center; margin-left: 1em;">
+                I am an awesome developer. I am an awesome developer. I am an awesome developer.
+                I am an awesome developer. I am an awesome developer. I am an awesome developer.
+                I am an awesome developer. I am an awesome developer. I am an awesome developer.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="has-text-centered">
+            <h2 class="title is-2 section--underline-bottom">Skill</h2>
+            <div class="section--underline"></div>
+        </div>
+        <div class="columns is-centered landing-skill-section">
+            <div class="columm" style="flex-basis: 50%; padding: 2rem;">
+                <drawing [drawingName]="'SkillsDrawing'" [viewportRatio]="'1:1'"></drawing>
+            </div>
+            <div class="columm" style="flex-basis: 50%; padding: 2rem;">
+                <drawing [drawingName]="'SkillsDrawing'" [viewportRatio]="'1:1'"></drawing>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="has-text-centered">
+            <h2 class="title is-2 section--underline-bottom">Projects</h2>
+            <div class="section--underline"></div>
+        </div>
+        <div class="columns is-multiline">
+
+            <div class="column is-6-tablet is-4-desktop">
+                <article class="card is-shadowless">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="assets/img/stub2.svg" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="landing-slide-shape">
+                        <header>
+                            <h3>Component</h3>
+                        </header>
+                        <div class="card-content">This is content</div>
+                    </div>
+                </article>
+            </div>
+            <div class="column is-6-tablet is-4-desktop">
+                <article class="card is-shadowless">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="assets/img/stub2.svg" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="landing-slide-shape">
+                        <header>
+                            <h3>Component</h3>
+                        </header>
+                        <div class="card-content">This is content</div>
+                    </div>
+                </article>
+            </div>
+            <div class="column is-6-tablet is-4-desktop">
+                <article class="card is-shadowless">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="assets/img/stub2.svg" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="landing-slide-shape">
+                        <header>
+                            <h3>Component</h3>
+                        </header>
+                        <div class="card-content">This is content</div>
+                    </div>
+                </article>
+            </div>
+            <div class="column is-6-tablet is-4-desktop">
+                <article class="card is-shadowless">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="assets/img/stub2.svg" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="landing-slide-shape">
+                        <header>
+                            <h3>Component</h3>
+                        </header>
+                        <div class="card-content">This is content</div>
+                    </div>
+                </article>
+            </div>
+            <div class="column is-6-tablet is-4-desktop">
+                <article class="card is-shadowless">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="assets/img/stub2.svg" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="landing-slide-shape">
+                        <header>
+                            <h3>Component</h3>
+                        </header>
+                        <div class="card-content">This is content</div>
+                    </div>
+                </article>
+            </div>
+            <div class="column is-6-tablet is-4-desktop">
+                <article class="card is-shadowless">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="assets/img/stub2.svg" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="landing-slide-shape">
+                        <header>
+                            <h3>Component</h3>
+                        </header>
+                        <div class="card-content">This is content</div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer app-footer class="footer"></footer>

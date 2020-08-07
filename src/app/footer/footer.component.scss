@@ -1,0 +1,54 @@
+@import "../../assets/scss/variables";
+
+.section--underline {
+    margin-bottom: 1rem;
+}
+
+input.input,
+textarea.textarea {
+    background-color: darken($primary, 6);
+    color: findColorInvert($primary);
+}
+
+input.input:focus+span i {
+    // Style fa icon on input focus
+    color: $subtle-color;
+}
+
+::placeholder {
+    color: $subtle-color;
+}
+
+:-ms-input-placeholder {
+    color: $subtle-color;
+}
+
+::-ms-input-placeholder {
+    color: $subtle-color;
+}
+
+.ground {
+    background-color: darken($primary, 10);
+    min-height: 150px;
+    margin-top: 10rem;
+}
+
+.ground .container {
+    padding: 3rem 0 0;
+    padding-bottom: 2rem;
+}
+
+.ground .level {
+    padding-bottom: 2rem;
+}
+
+.ground .level-item > i {
+    justify-content: space-around;
+    margin: 1rem;
+    padding: 1rem;
+    min-width: 60px;
+    font-size: 2rem;
+    background-color: $primary;
+    color: findColorInvert($primary);
+    opacity: 1; // Because I used opacity: 0.2 on .ground
+}

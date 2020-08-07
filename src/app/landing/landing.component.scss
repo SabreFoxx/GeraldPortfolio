@@ -1,0 +1,49 @@
+@import "../../assets/scss/variables";
+
+.landing-view-work-button {
+    background-color: transparent;
+    border: 3px solid white;
+    width: 20%;
+    min-width: 15em !important;
+    padding: 1em 2em;
+    cursor: pointer;
+    color: findColorInvert($primary);
+}
+
+$profile-img-border: 1rem;
+$profile-img-width: 480px;
+
+.landing-profile-picture {
+    padding: 5px;
+    border-radius: $profile-img-border;
+    max-width: $profile-img-width;
+}
+
+.landing-profile-picture img, .landing-skill-section img {
+    border-radius: $profile-img-border;
+    max-width: $profile-img-width;
+    padding: 1em;
+}
+
+@media (min-width: 1024 / 16 * 1em) {
+    .landing-about {
+        padding-left: 5em;
+        padding-right: 5em;
+    }
+
+    div.columns {
+        justify-content: space-around;
+    }
+}
+
+.hero-body {
+    position: relative;
+}
+
+.hero-art {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

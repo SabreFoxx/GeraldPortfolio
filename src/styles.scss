@@ -1,34 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
-@import "node_modules/bulma/sass/utilities/initial-variables";
-@import "node_modules/bulma/sass/utilities/functions";
-
-// 2. Set your own initial variables
-// Update blue
-$blue: #72d0eb;
-
-// Add pink and its invert
-$pink: #ffb3b3;
-$pink-invert: #fff;
-
-// Add a serif family
-$family-serif: "Merriweather", "Georgia", serif;
-
-// 3. Set the derived variables
-// Use the new pink as the primary color
-// $primary: $pink;
-// $primary-invert: $pink-invert;
-
-// Use the existing orange as the danger color
-$danger: $orange;
-// Use the new serif family
-$family-primary: $family-serif;
+@import "assets/scss/variables";
 
 @import "node_modules/bulma/bulma";
 
-.bold {
-    background-color: #8a3b3b;
-    color: rgb(219, 188, 188);
-    padding: 1em;
+.box {
+    border: 3px solid $highlight-color;
+}
+
+.navbar {
+    border-bottom: 10px solid darken($subtle-color, 4);
+    background-color: darken($primary, 2);
+}
+
+@media (min-width: 1024 / 16 * 1em) {
+    .navbar {
+        border-bottom: 10px solid $subtle-color;
+    }
+}
+
+.navbar-burger {
+    color: findColorInvert($primary);
+}
+
+.navbar-item {
+    color: findColorInvert($primary);
+}
+
+a.navbar-item:hover {
+    background-color: $buccaneer;
+    color: findColorInvert($buccaneer);
+}
+
+@media (min-width: 1024 / 16 * 1em) {
+    .navbar-menu .navbar-item {
+        margin-left: 3em;
+    }
+}
+
+@media (max-width: 1024 / 16 * 1em) {
+    .navbar-menu {
+        background-color: $subtle-color;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.section {
+    padding-top: 6em;
+    padding-bottom: 6em;
+}
+
+.section:nth-child(even) { // For stripes
+    background-color: $white-ter;
+}
+
+.section--underline-bottom {
+    text-transform: uppercase;
+    margin-bottom: -2px;
+}
+
+.section--underline {
+    display: inline-block;
+    background-color: $link;
+    max-width: 100px;
+    width: 30%;
+    height: 5px;
+    margin-bottom: 5em;
 }

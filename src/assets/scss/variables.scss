@@ -1,0 +1,21 @@
+@import "node_modules/bulma/sass/utilities/initial-variables",
+"node_modules/bulma/sass/utilities/functions";
+
+// Add a serif family
+$family-serif: "Merriweather",
+"Georgia",
+serif;
+$mineral-green: #435957;
+$buccaneer: #673832;
+$buccaneer: lighten($buccaneer, 4);
+$storm-dust: #5b6165;
+$bossanova: #58255e;
+
+$primary: $mineral-green;
+$link: $buccaneer;
+$subtle-color: $storm-dust;
+$highlight-color: $bossanova;
+
+$footer-background-color: $primary;
+$footer-color: findColorInvert($primary);
+$footer-padding: 0;
