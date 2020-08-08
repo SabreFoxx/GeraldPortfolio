@@ -57,18 +57,17 @@ class CollisionHandler {
      * Makes collided objects go away from each other
      */
     bounceObjects() {
-        this.completelyBlockCollision = true; // To prevent direction reversing jaggyness
-        setTimeout(() => {
-            this.completelyBlockCollision = false;
-        }, 300);
+        // This is necessary so we won't have double collisions, which will switch travel direction
+        // a second time, swiftly, and prevent the plates from travelling the proper direction
+        this.completelyBlockCollision = true;
+        // The other plate, and only it, can detect collision
+        this.objectPartner.collisionHandler.completelyBlockCollision = false;
+
         // Reverse their directions
-        // TODO Fix bug plates to attract each other, after collision detection detects
-        // Collision detection is working fine
-        // The bug has to deal with which direction to follow after collision
-        // Probles is either there is an over collision which changes direction twice,
-        // or we're using a wrong algorithm for choosing direction
-        this.object.changeCourse(-this.directionDuringCollision, getPrincipledSpeed());
-        this.objectPartner.changeCourse(this.directionDuringCollision, getPrincipledSpeed());
+        // Making them have equal speeds, contributes a bit in preventing them entering one another
+        let speed = getPrincipledSpeed();
+        this.object.changeCourse(-this.directionDuringCollision, speed);
+        this.objectPartner.changeCourse(this.directionDuringCollision, speed);
     }
 }
 
@@ -81,7 +80,6 @@ class MovableObject {
     canCollide: boolean;
     collisionHandler: CollisionHandler;
     errorRangeForOrigin: number = 0.04;
-    justCollided: boolean = false; // used to turn off collision after it just happened, to prevent bugs
 
     static allCollisionHandlers: CollisionHandler[] = new Array;
 
@@ -92,20 +90,9 @@ class MovableObject {
     private ray: Raycaster;
     private rayDirection: Vector3;
 
-    constructor(name: string, object: Object3D, canCollide?: boolean, objectCanCollideTo?: Object3D) {
+    constructor(name: string, object: Object3D) {
         this.objectName = name;
         this.object = object;
-        if (canCollide === undefined) canCollide = false;
-        if (canCollide) {
-            if (objectCanCollideTo === undefined) throw new Error("objectCanCollidTo is empty");
-            this.canCollide = true;
-            this.collisionHandler = new CollisionHandler(this,
-                new MovableObject("null", objectCanCollideTo));
-            MovableObject.allCollisionHandlers.push(this.collisionHandler);
-            this.threeDRayPositionHelpers = new Array;
-            this.threeDRayPositionHelpers[0] = this.object.getObjectByName(this.objectName + "_raycast_helper_t");
-            this.threeDRayPositionHelpers[1] = this.object.getObjectByName(this.objectName + "_raycast_helper_h");
-        }
         this.originalAngle = object.rotation.z;
         this.direction = (() => { if (Math.random() > 0.5) return -1; else return 1; })();
         this.rotationSpeed = getPrincipledSpeed();
@@ -128,7 +115,7 @@ class MovableObject {
             setTimeout(() => {
                 this.errorRangeForOrigin = 0.05;
             }, 200);
-            if (Math.random() > 0.3) this.changeCourse(); // Change direction
+            if (Math.random() > 0.3) this.changeCourse(-this.direction, 1.5 * getPrincipledSpeed());
         }
         this.rotate();
     }
@@ -158,6 +145,24 @@ class MovableObject {
     }
 
     /**
+     * Pepares this object for collision detection
+     * @param canCollide can this object detect collision?
+     * @param objectCanCollideTo what object can it collide with?
+     */
+    setCollidable(canCollide: boolean, objectCanCollideTo: MovableObject): MovableObject {
+        this.canCollide = canCollide;
+        if (canCollide) {
+            this.collisionHandler = new CollisionHandler(this, objectCanCollideTo);
+            MovableObject.allCollisionHandlers.push(this.collisionHandler);
+            this.threeDRayPositionHelpers = new Array;
+            this.threeDRayPositionHelpers[0] = this.object.getObjectByName(this.objectName + "_raycast_helper_t");
+            this.threeDRayPositionHelpers[1] = this.object.getObjectByName(this.objectName + "_raycast_helper_h");
+            return this;
+        }
+        return undefined;
+    }
+
+    /**
      * Returns true if collided with partner
      */
     isCollided(): boolean {
@@ -165,27 +170,25 @@ class MovableObject {
             return false;
 
         //  We don't want multiple trues, so the last operation will go smoothly
-        if (this.justCollided || this.collisionHandler.completelyBlockCollision) return false;
-        this.justCollided = true;
-        setTimeout(() => { // It's not redundant because it works even if completelyBlockCollision is false
-            this.justCollided = false;
-        }, 32);
-
-        // Set head and tail vectors by using helpers
-        this.threeDRayPositionHelpers[0].getWorldPosition(this.tail);
-        this.threeDRayPositionHelpers[1].getWorldPosition(this.head);
-        // Get direction, by taking difference of two vectors
-        this.rayDirection.subVectors(this.head, this.tail).normalize();
-        this.ray.set(this.tail, this.rayDirection);
-        let result = this.ray.intersectObject(this.collisionHandler.objectPartner.object, true);
-
-        // return result
-        if (result.length > 0) {
-            this.collisionHandler.directionDuringCollision = this.direction;
-            return true;
-        }
-        else
+        if (this.collisionHandler.completelyBlockCollision) {
             return false;
+        } else {
+            // Set head and tail vectors by using helpers
+            this.threeDRayPositionHelpers[0].getWorldPosition(this.tail);
+            this.threeDRayPositionHelpers[1].getWorldPosition(this.head);
+            // Get direction, by taking difference of two vectors
+            this.rayDirection.subVectors(this.head, this.tail).normalize();
+            this.ray.set(this.tail, this.rayDirection);
+            let result = this.ray.intersectObject(this.collisionHandler.objectPartner.object, true);
+
+            // return result
+            if (result.length > 0) {
+                this.collisionHandler.directionDuringCollision = this.direction;
+                return true;
+            }
+            else
+                return false;
+        }
     }
 
     rotate() {
@@ -223,36 +226,26 @@ export class SkillsDrawing implements Drawing {
             });
         });
 
-        // Setup animation and animation helpers
+        // Setup animation and collision
         this.sceneLoaded.then(res => {
             let all = this.base.scene.getObjectByName("primary");
             this.movableObjects.push(new MovableObject("center1", all.getObjectByName("center1")));
             this.movableObjects.push(new MovableObject("center2", all.getObjectByName("center2")));
             this.movableObjects.push(new MovableObject("center3", all.getObjectByName("center3")));
-            this.movableObjects.push(
-                new MovableObject("glsl", all.getObjectByName("glsl_bg"),
-                    true, all.getObjectByName("scss_bg"))
-            );
-            this.movableObjects.push(
-                new MovableObject("scss", all.getObjectByName("scss_bg"),
-                    true, all.getObjectByName("glsl_bg"))
-            );
-            this.movableObjects.push(
-                new MovableObject("typescript", all.getObjectByName("typescript_bg"),
-                    true, all.getObjectByName("sql_bg"))
-            );
-            this.movableObjects.push(
-                new MovableObject("sql", all.getObjectByName("sql_bg"),
-                    true, all.getObjectByName("typescript_bg"))
-            );
-            this.movableObjects.push(
-                new MovableObject("javascript", all.getObjectByName("javascript_bg"),
-                    true, all.getObjectByName("cpp_bg"))
-            );
-            this.movableObjects.push(
-                new MovableObject("cpp", all.getObjectByName("cpp_bg"),
-                    true, all.getObjectByName("javascript_bg"))
-            );
+
+            let glsl = new MovableObject("glsl", all.getObjectByName("glsl_bg"));
+            let scss = new MovableObject("scss", all.getObjectByName("scss_bg"));
+            let typescript = new MovableObject("typescript", all.getObjectByName("typescript_bg"));
+            let sql = new MovableObject("sql", all.getObjectByName("sql_bg"));
+            let javascript = new MovableObject("javascript", all.getObjectByName("javascript_bg"));
+            let cpp = new MovableObject("cpp", all.getObjectByName("cpp_bg"));
+
+            this.movableObjects.push(glsl.setCollidable(true, scss));
+            this.movableObjects.push(scss.setCollidable(true, glsl));
+            this.movableObjects.push(typescript.setCollidable(true, sql));
+            this.movableObjects.push(sql.setCollidable(true, typescript));
+            this.movableObjects.push(javascript.setCollidable(true, cpp));
+            this.movableObjects.push(cpp.setCollidable(true, javascript));
         });
 
         // (window as any).initFpsStats(); // Init fps stats. See assets/scripts/use_stats.js
@@ -265,12 +258,12 @@ export class SkillsDrawing implements Drawing {
 
     animate = () => {
         this.base.renderer.clear();
+        requestAnimationFrame(this.animate);
         // (window as any).stats.update(); // Required, so our stats object can update itself. See assets/scripts/use_stats.js
 
         this.movableObjects.forEach(m => m.move());
         MovableObject.allCollisionHandlers.forEach(c => c.squeeze());
 
-        requestAnimationFrame(this.animate);
         // We out commented the below, since we won't be calling render(), since we're using a
         // post process workflow. We will use the render() method of an EffectComposer instead
         // this.base.renderer.render(this.base.scene, this.base.camera); // we won't be using this again
@@ -283,8 +276,8 @@ export class SkillsDrawing implements Drawing {
  */
 function getPrincipledSpeed(): number {
     // Set min and max speeds
-    // If it's too fast, collision detection may not work
-    return random(0.004, 0.015);
+    // Too fast or too slow, and the direction change may fail on collision detection
+    return random(0.005, 0.017);
 }
 
 function random(min, max) {
