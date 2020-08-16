@@ -19,3 +19,5 @@ $highlight-color: $bossanova;
 $footer-background-color: $primary;
 $footer-color: findColorInvert($primary);
 $footer-padding: 0;
+
+@import "node_modules/bulma/sass/utilities/initial-variables";

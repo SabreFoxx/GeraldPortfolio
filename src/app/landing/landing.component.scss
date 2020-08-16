@@ -19,7 +19,8 @@ $profile-img-width: 480px;
     max-width: $profile-img-width;
 }
 
-.landing-profile-picture img, .landing-skill-section img {
+.landing-profile-picture img,
+.landing-skill-section img {
     border-radius: $profile-img-border;
     max-width: $profile-img-width;
     padding: 1em;
@@ -46,4 +47,70 @@ $profile-img-width: 480px;
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+$projects-background-color: white;
+$projects-border-radius: 1rem;
+
+.projects, .projects .column {
+    margin: 0.5em;
+}
+
+@media (min-width: $tablet) {
+    .projects {
+        margin-bottom: 2em;
+    }
+}
+
+.make-relative {
+    position: relative;
+}
+
+.projects .card {
+    background-color: $projects-background-color;
+    border-radius: $projects-border-radius;
+    padding: 0 0.4em;
+}
+
+.projects .card-image {
+    z-index: 1;
+}
+
+.three {
+    box-shadow: 0.5em 0.5em 20px rgba($color: #000000, $alpha: 0.4);
+    transform: perspective(1100px) rotate3d(0, 1, 0, 45deg);
+    backface-visibility: hidden;
+}
+
+.rod {
+    padding: 0;
+}
+
+.rod--up {
+    margin-bottom: -5px;
+}
+
+.rod--down {
+    margin-top: -5px;
+}
+
+.border {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 10px solid $highlight-color;
+    border-radius: $projects-border-radius;
+    background-color: transparent;
+}
+
+.cut {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    background-color: $projects-background-color;
+    border-radius: $projects-border-radius;
 }

@@ -15,13 +15,11 @@ class CollisionHandler {
     currentMorphWeight: number;
     directionDuringCollision: number; // +-1
     completelyBlockCollision: boolean = false;
-    timeout: NodeJS.Timeout; // A central setTimeout object, so we won't create many and cause side-effect timing bugs
 
     constructor(object: MovableObject, objectPartner: MovableObject) {
         this.object = object;
         this.objectPartner = objectPartner;
         this.morphSpeed = MORPH_SPEED;
-        this.timeout = setTimeout(() => {}, 0);
     }
 
     squeeze() {
@@ -63,20 +61,11 @@ class CollisionHandler {
         // a second time, swiftly, and prevent the plates from travelling the proper direction
         this.completelyBlockCollision = true;
 
-        // However, enable it after a second in case the object comes close to the other for long,
-        // If the collision is off, it will eventually enter the other object
-        window.clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-            this.completelyBlockCollision = false;
-        }, 1000);
-        // NOTE: We are not creating a new setTimeout, but intead resetting an already created
-        // one. We do not want many setTimeout's to be out there, ready to cause bugs for us.
-
         // The other plate, and only it, can detect collision
         this.objectPartner.collisionHandler.completelyBlockCollision = false;
 
         // Reverse their directions
-        this.object.changeCourse(-1 * this.directionDuringCollision, getPrincipledSpeed());
+        this.object.changeCourse(-this.directionDuringCollision, getPrincipledSpeed());
         this.objectPartner.changeCourse(this.directionDuringCollision, getPrincipledSpeed());
     }
 }
@@ -124,7 +113,7 @@ class MovableObject {
             // Re-enable after milliseconds
             setTimeout(() => {
                 this.errorRangeForOrigin = 0.05;
-            }, 200);
+            }, 400);
             if (Math.random() > 0.3) this.changeCourse();
         }
         this.rotate();
