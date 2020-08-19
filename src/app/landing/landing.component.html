@@ -1,8 +1,8 @@
 <section #heroSection id="hero" class="hero is-dark is-bold is-primary is-fullheight">
     <!-- We need #heroSection, so we can fetch its dimensions -->
-    <div class="hero-art" (window:resize)="customResizer($event)">
+    <!-- <div class="hero-art" (window:resize)="customResizer($event)">
         <drawing #heroDrawing [drawingName]="'HeroArtDrawing'"></drawing>
-    </div>
+    </div> -->
     <div class="hero-body">
         <div class="container has-text-centered">
             <h1 class="title">Hello, I'm <a class="is-link">Gerald Nnebe</a>.</h1>
@@ -12,6 +12,7 @@
     </div>
 </section>
 <nav app-nav class="navbar has-shadow"></nav>
+<div (scroll)="onScroll($event)"></div>
 
 <section class="section">
     <div class="container">
@@ -37,15 +38,17 @@
 <section class="section">
     <div class="container">
         <div class="has-text-centered">
-            <h2 class="title is-2 section--underline-bottom">Skill</h2>
+            <h2 class="title is-2 section--underline-bottom" #skillSection>Skill</h2>
             <div class="section--underline"></div>
         </div>
         <div class="columns is-centered landing-skill-section">
-            <div class="columm" style="flex-basis: 50%; padding: 1rem;">
+            <div class="columm skill--prep-ainmate" [class.skill--animate]="animateSkill"
+                style="flex-basis: 50%; padding: 1rem;">
                 <drawing [drawingName]="'SkillsDrawing'" [viewportRatio]="'1:1'"></drawing>
             </div>
             <div class="columm" style="flex-basis: 50%; padding: 1rem;">
-                <drawing [drawingName]="'SkillsDrawing'" [viewportRatio]="'1:1'"></drawing>
+                <drawing [class.languages]="animateLanguage" [drawingName]="'SkillsDrawing'" [viewportRatio]="'1:1'">
+                </drawing>
             </div>
         </div>
     </div>
@@ -54,14 +57,14 @@
 <section class="section">
     <div class="container">
         <div class="has-text-centered">
-            <h2 class="title is-2 section--underline-bottom">Projects</h2>
+            <h2 class="title is-2 section--underline-bottom" #projectSection>Projects</h2>
             <div class="section--underline"></div>
         </div>
 
         <div class="columns projects">
-            <div class="column is-4-tablet make-relative">
-                <div class="border"></div>
-                <div class="cut"></div>
+            <div class="column is-4-tablet zoom make-relative">
+                <div class="projects__border"></div>
+                <div class="projects__cut"></div>
                 <article class="card is-shadowless">
                     <div class="card-content rod rod--up">
                         <div class="container image" style="width: 30px">
@@ -81,8 +84,8 @@
                 </article>
             </div>
             <div class="column is-4-tablet make-relative">
-                <div class="border"></div>
-                <div class="cut"></div>
+                <div class="projects__border"></div>
+                <div class="projects__cut"></div>
                 <article class="card is-shadowless">
                     <div class="card-content rod rod--up">
                         <div class="container image" style="width: 30px">
@@ -102,8 +105,8 @@
                 </article>
             </div>
             <div class="column is-4-tablet make-relative">
-                <div class="border"></div>
-                <div class="cut"></div>
+                <div class="projects__border"></div>
+                <div class="projects__cut"></div>
                 <article class="card is-shadowless">
                     <div class="card-content rod rod--up">
                         <div class="container image" style="width: 30px">
@@ -126,8 +129,8 @@
 
         <div class="columns projects">
             <div class="column is-4-tablet make-relative">
-                <div class="border"></div>
-                <div class="cut"></div>
+                <div class="projects__border"></div>
+                <div class="projects__cut"></div>
                 <article class="card is-shadowless">
                     <div class="card-content rod rod--up">
                         <div class="container image" style="width: 30px">
@@ -147,8 +150,8 @@
                 </article>
             </div>
             <div class="column is-4-tablet make-relative">
-                <div class="border"></div>
-                <div class="cut"></div>
+                <div class="projects__border"></div>
+                <div class="projects__cut"></div>
                 <article class="card is-shadowless">
                     <div class="card-content rod rod--up">
                         <div class="container image" style="width: 30px">
@@ -168,8 +171,8 @@
                 </article>
             </div>
             <div class="column is-4-tablet make-relative">
-                <div class="border"></div>
-                <div class="cut"></div>
+                <div class="projects__border"></div>
+                <div class="projects__cut"></div>
                 <article class="card is-shadowless">
                     <div class="card-content rod rod--up">
                         <div class="container image" style="width: 30px">

@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
+  isMobileNavActive: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onBurgerClicked() {
+    this.isMobileNavActive = !this.isMobileNavActive;
   }
 
 }

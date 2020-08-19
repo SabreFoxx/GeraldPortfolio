@@ -52,7 +52,8 @@ $profile-img-width: 480px;
 $projects-background-color: white;
 $projects-border-radius: 1rem;
 
-.projects, .projects .column {
+.projects,
+.projects .column {
     margin: 0.5em;
 }
 
@@ -64,6 +65,14 @@ $projects-border-radius: 1rem;
 
 .make-relative {
     position: relative;
+}
+
+.zoom {
+    transition: all 0.2s ease-out;
+}
+
+.zoom:hover {
+    transform: scale(1.05);
 }
 
 .projects .card {
@@ -94,23 +103,34 @@ $projects-border-radius: 1rem;
     margin-top: -5px;
 }
 
-.border {
+$border-thickness: 5px;
+
+.projects__border {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    border: 10px solid $highlight-color;
+    border: $border-thickness solid $highlight-color;
     border-radius: $projects-border-radius;
     background-color: transparent;
 }
 
-.cut {
+.projects__cut {
     position: absolute;
-    top: 10px;
-    bottom: 10px;
+    top: $border-thickness - 1;
+    bottom: $border-thickness - 1;
     left: 0;
     right: 0;
     background-color: $projects-background-color;
     border-radius: $projects-border-radius;
+}
+
+.skill--prep-ainmate {
+    transform: translate(-120%);
+    transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+}
+
+.skill--animate {
+    transform: translate(0);
 }

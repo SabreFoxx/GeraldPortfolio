@@ -1,8 +1,9 @@
-<div class="navbar-brand"><!-- Logo, tagline, and navbar-burger -->
+<div class="navbar-brand">
+    <!-- Logo, tagline, and navbar-burger -->
     <a class="navbar-item">
         <img src="assets/img/logo.svg">
     </a>
-    <div class="navbar-burger">
+    <div class="navbar-burger" [class.is-active]="isMobileNavActive" (click)="onBurgerClicked()">
         <span></span>
         <span></span>
         <span></span>
@@ -10,7 +11,8 @@
 
 </div>
 
-<div class="navbar-menu is-active"><!-- User name, dropdown menu -->
+<div class="navbar-menu" [class.is-active]="isMobileNavActive">
+    <!-- User name, dropdown menu -->
     <div class="navbar-start">
         <a class="navbar-item" href="#">
             Home
@@ -28,9 +30,11 @@
             Contact
         </a>
     </div>
-    <!--<div class="navbar-end">
-        <div class="navbar-item">
-            I'm awesomeness!
+    <!-- <div class="navbar-end">
+        <div class="buttons">
+            <a class="button is-light">
+                Log in
+            </a>
         </div>
     </div> -->
 </div>

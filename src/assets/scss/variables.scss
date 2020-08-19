@@ -1,6 +1,8 @@
 @import "node_modules/bulma/sass/utilities/initial-variables",
 "node_modules/bulma/sass/utilities/functions";
 
+/* Override initial variables here */
+
 // Add a serif family
 $family-serif: "Merriweather",
 "Georgia",
@@ -20,4 +22,6 @@ $footer-background-color: $primary;
 $footer-color: findColorInvert($primary);
 $footer-padding: 0;
 
-@import "node_modules/bulma/sass/utilities/initial-variables";
+@import "node_modules/bulma/sass/utilities/derived-variables";
+
+/* Override default variables here */
