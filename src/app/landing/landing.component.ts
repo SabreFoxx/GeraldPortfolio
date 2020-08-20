@@ -21,10 +21,11 @@ class AnimatableObject {
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
-  @ViewChild('heroSection') heroArt: ElementRef;
-  @ViewChild('heroDrawing') drawingComponent: DrawComponent;
-  @ViewChild('projectSection') projectSection: ElementRef;
-  @ViewChild('skillSection') skillSection: ElementRef;
+  @ViewChild("heroSection") heroArt: ElementRef;
+  @ViewChild("heroDrawing") drawingComponent: DrawComponent;
+  @ViewChild("projectSection") projectSection: ElementRef;
+  @ViewChild("skillSection") skillSection: ElementRef;
+
   sections: Map<string, AnimatableObject>;
 
   animateSkill = false;

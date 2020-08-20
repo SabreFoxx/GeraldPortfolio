@@ -11,8 +11,8 @@
         </div>
     </div>
 </section>
-<nav app-nav class="navbar has-shadow"></nav>
-<div (scroll)="onScroll($event)"></div>
+<nav app-nav></nav>
+<div (window:scroll)="onScroll($event)"></div>
 
 <section class="section">
     <div class="container">

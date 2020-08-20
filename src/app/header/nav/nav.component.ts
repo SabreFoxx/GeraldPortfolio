@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'nav[app-nav]',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
+  @HostBinding("attr.class") cssClass = "navbar has-shadow";
   isMobileNavActive: boolean = false;
 
   constructor() { }
