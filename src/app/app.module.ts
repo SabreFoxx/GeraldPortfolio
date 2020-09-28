@@ -1,3 +1,4 @@
+import { ProjectPageModule } from './../project-page/project-page.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -30,7 +31,8 @@ import { DrawComponent } from './draw/draw.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ProjectPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

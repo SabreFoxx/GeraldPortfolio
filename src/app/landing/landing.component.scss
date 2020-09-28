@@ -128,7 +128,7 @@ $border-thickness: 5px;
 
 .skill--prep-ainmate {
     transform: translate(-120%);
-    transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.15);
 }
 
 .skill--animate {
