@@ -1,7 +1,9 @@
+/* If we're going to override Bulma variables, we need to do it before importing Bulma modules */
+/* So in our styles.scss file, we will import this file before importing Bulma */
 @import "node_modules/bulma/sass/utilities/initial-variables",
 "node_modules/bulma/sass/utilities/functions";
 
-/* Override initial variables here */
+/* Override initial variables default here */
 
 // Add a serif family
 $family-serif: "Merriweather",
@@ -24,4 +26,4 @@ $footer-padding: 0;
 
 @import "node_modules/bulma/sass/utilities/derived-variables";
 
-/* Override default variables here */
+/* Override derived variables default here */
